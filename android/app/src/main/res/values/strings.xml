@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  
+    <string name="facebook_app_id">946970230353188</string>
+    <string name="fb_login_protocol_scheme">fb946970230353188</string>
+    <string name="facebook_client_token">e3c42ff73c14c1f697eac73f1f45b10c</string>
+    <string name="app_name">Global Gallery</string>
+
+</resources>
