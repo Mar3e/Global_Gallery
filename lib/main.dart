@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:global_gallery/state/auth/backend/authenticator.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -42,11 +45,25 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Global Gallery'),
       ),
-      body: const Center(
-        child: Text('My Body.'),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ElevatedButton(
+            onPressed: () async {
+              final result = await Authenticator().loginWithGoogle();
+              log(result.toString());
+            },
+            child: const Text('Sign in with google'),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              final result = await Authenticator().loginWithFacebook();
+              log(result.toString());
+            },
+            child: const Text('Sign in with facebook'),
+          ),
+        ],
       ),
     );
   }
