@@ -1,9 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:global_gallery/state/auth/backend/authenticator.dart';
-import 'package:global_gallery/state/auth/notfires/auth_state_notifire.dart';
 import 'package:global_gallery/state/auth/providers/auth_state_provider.dart';
 import 'package:global_gallery/state/auth/providers/is_logged_in_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -59,7 +55,7 @@ class MainPage extends StatelessWidget {
         title: const Text('Global Gallery'),
       ),
       body: Consumer(
-        builder: (context, ref, child) {
+        builder: (_, ref, __) {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
