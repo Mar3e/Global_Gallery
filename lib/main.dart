@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:global_gallery/state/auth/providers/auth_state_provider.dart';
 import 'package:global_gallery/state/auth/providers/is_logged_in_provider.dart';
+import 'package:global_gallery/state/providers/is_loading_provider.dart';
+import 'package:global_gallery/views/components/loading/loading_screen.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'firebase_options.dart';
 
@@ -33,6 +35,18 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.dark,
       home: Consumer(
         builder: (context, ref, child) {
+// Display the loading on to of the entire app
+          ref.listen(
+            isLoadingProvider,
+            (_, isLoading) {
+              if (isLoading) {
+                LoadingScreen.instance().show(context: context);
+              } else {
+                LoadingScreen.instance().hide();
+              }
+            },
+          );
+
           final isLoggedIn = ref.watch(isLoggedInProvider);
           if (isLoggedIn) {
             return const MainPage();
