@@ -3,6 +3,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:global_gallery/state/auth/backend/authenticator.dart';
+import 'package:global_gallery/state/auth/notfires/auth_state_notifire.dart';
+import 'package:global_gallery/state/auth/providers/auth_state_provider.dart';
+import 'package:global_gallery/state/auth/providers/is_logged_in_provider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -11,7 +15,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -31,13 +35,22 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepOrange,
       ),
       themeMode: ThemeMode.dark,
-      home: const MyHomePage(),
+      home: Consumer(
+        builder: (context, ref, child) {
+          final isLoggedIn = ref.watch(isLoggedInProvider);
+          if (isLoggedIn) {
+            return const MainPage();
+          } else {
+            return const LoginPage();
+          }
+        },
+      ),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
+class MainPage extends StatelessWidget {
+  const MainPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,25 +58,50 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Global Gallery'),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ElevatedButton(
-            onPressed: () async {
-              final result = await Authenticator().loginWithGoogle();
-              log(result.toString());
-            },
-            child: const Text('Sign in with google'),
-          ),
-          ElevatedButton(
-            onPressed: () async {
-              final result = await Authenticator().loginWithFacebook();
-              log(result.toString());
-            },
-            child: const Text('Sign in with facebook'),
-          ),
-        ],
+      body: Consumer(
+        builder: (context, ref, child) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                const Text('you logged in'),
+                ElevatedButton(
+                  onPressed: () async {
+                    ref.read(authStateProvider.notifier).logOut();
+                  },
+                  child: const Text('Logout!'),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class LoginPage extends ConsumerWidget {
+  const LoginPage({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ElevatedButton(
+              onPressed: ref.read(authStateProvider.notifier).loginWithGoogle,
+              child: const Text('Sign in with google'),
+            ),
+            ElevatedButton(
+              onPressed: ref.read(authStateProvider.notifier).loginWithFacebook,
+              child: const Text('Sign in with facebook'),
+            ),
+          ],
+        ),
       ),
     );
   }
