@@ -4,6 +4,7 @@ import 'package:global_gallery/state/auth/providers/auth_state_provider.dart';
 import 'package:global_gallery/state/auth/providers/is_logged_in_provider.dart';
 import 'package:global_gallery/state/providers/is_loading_provider.dart';
 import 'package:global_gallery/views/components/loading/loading_screen.dart';
+import 'package:global_gallery/views/login/login_view.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'firebase_options.dart';
 
@@ -51,7 +52,7 @@ class MyApp extends StatelessWidget {
           if (isLoggedIn) {
             return const MainPage();
           } else {
-            return const LoginPage();
+            return const LoginView();
           }
         },
       ),
@@ -86,32 +87,6 @@ class MainPage extends StatelessWidget {
             ),
           );
         },
-      ),
-    );
-  }
-}
-
-class LoginPage extends ConsumerWidget {
-  const LoginPage({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ElevatedButton(
-              onPressed: ref.read(authStateProvider.notifier).loginWithGoogle,
-              child: const Text('Sign in with google'),
-            ),
-            ElevatedButton(
-              onPressed: ref.read(authStateProvider.notifier).loginWithFacebook,
-              child: const Text('Sign in with facebook'),
-            ),
-          ],
-        ),
       ),
     );
   }
