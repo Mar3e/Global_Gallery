@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:global_gallery/state/auth/providers/auth_state_provider.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
+import 'package:global_gallery/views/main/main_view.dart';
 import 'package:global_gallery/state/auth/providers/is_logged_in_provider.dart';
 import 'package:global_gallery/state/providers/is_loading_provider.dart';
 import 'package:global_gallery/views/components/loading/loading_screen.dart';
@@ -13,6 +14,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FirebaseAppCheck.instance.activate(
+    androidProvider: AndroidProvider.debug,
+  );
 
   runApp(const ProviderScope(child: MyApp()));
 }
@@ -24,7 +28,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Global Gallery',
       theme: ThemeData(
         brightness: Brightness.light,
         primarySwatch: Colors.lightGreen,
@@ -50,42 +54,10 @@ class MyApp extends StatelessWidget {
 
           final isLoggedIn = ref.watch(isLoggedInProvider);
           if (isLoggedIn) {
-            return const MainPage();
+            return const MainView();
           } else {
             return const LoginView();
           }
-        },
-      ),
-    );
-  }
-}
-
-class MainPage extends StatelessWidget {
-  const MainPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Global Gallery'),
-      ),
-      body: Consumer(
-        builder: (_, ref, __) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                const Text('you logged in'),
-                ElevatedButton(
-                  onPressed: () async {
-                    ref.read(authStateProvider.notifier).logOut();
-                  },
-                  child: const Text('Logout!'),
-                ),
-              ],
-            ),
-          );
         },
       ),
     );
