@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:global_gallery/state/auth/providers/user_id_provider.dart';
 import 'package:global_gallery/state/image_upload/models/file_type.dart';
@@ -11,6 +10,7 @@ import 'package:global_gallery/state/post_settings/models/post_settings.dart';
 import 'package:global_gallery/state/post_settings/providers/post_settings_provider.dart';
 import 'package:global_gallery/views/components/file_thumbnail_view.dart';
 import 'package:global_gallery/views/constants/strings.dart';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class CreateNewPostView extends StatefulHookConsumerWidget {
@@ -72,6 +72,7 @@ class _CreateNewPostViewState extends ConsumerState<CreateNewPostView> {
                               postSettings: postSettings,
                               userId: userId,
                             );
+
                     if (isUploaded && context.mounted) {
                       Navigator.of(context).pop();
                     }

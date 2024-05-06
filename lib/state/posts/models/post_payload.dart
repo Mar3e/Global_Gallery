@@ -2,7 +2,6 @@ import 'dart:collection' show MapView;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart' show immutable;
-import 'package:global_gallery/state/image_upload/models/file_type.dart';
 import 'package:global_gallery/state/post_settings/models/post_settings.dart';
 import 'package:global_gallery/state/posts/models/post_key.dart';
 import 'package:global_gallery/state/posts/typedefs/user_id.dart';
