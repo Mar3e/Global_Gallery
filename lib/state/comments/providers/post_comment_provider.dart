@@ -35,7 +35,7 @@ final postCommentProvider = StreamProvider.family
         final comments =
             limitedDocs.where((doc) => !doc.metadata.hasPendingWrites).map(
                   (document) => Comment(
-                    document.data(),
+                    json: document.data(),
                     id: document.id,
                   ),
                 );

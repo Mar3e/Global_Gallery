@@ -13,8 +13,8 @@ class Comment {
   final UserId fromUserId;
   final PostId onPostId;
 
-  Comment(
-    Map<String, dynamic> json, {
+  Comment({
+    required Map<String, dynamic> json,
     required this.id,
   })  : comment = json[FirebaseFieldName.comment],
         createdAt = (json[FirebaseFieldName.createdAt] as Timestamp).toDate(),

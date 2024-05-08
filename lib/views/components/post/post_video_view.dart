@@ -41,7 +41,5 @@ class PostVideoView extends HookWidget {
         ///but for in case
         return const ErrorAnimationView();
     }
-
-    return const Placeholder();
   }
 }
