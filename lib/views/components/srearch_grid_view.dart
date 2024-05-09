@@ -5,6 +5,7 @@ import 'package:global_gallery/views/components/animations/empty_contents_with_t
 import 'package:global_gallery/views/components/animations/error_animation_view.dart';
 import 'package:global_gallery/views/components/animations/loading_animation_view.dart';
 import 'package:global_gallery/views/components/post/posts_grid_view.dart';
+import 'package:global_gallery/views/components/post/posts_sliver_grid_view.dart';
 import 'package:global_gallery/views/constants/strings.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -18,8 +19,10 @@ class SearchGridView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     if (searchTerm.isEmpty) {
-      return const EmptyContentsWithTextAnimationView(
-        text: Strings.enterYourSearchTerm,
+      return const SliverToBoxAdapter(
+        child: EmptyContentsWithTextAnimationView(
+          text: Strings.enterYourSearchTerm,
+        ),
       );
     }
 
@@ -30,15 +33,21 @@ class SearchGridView extends ConsumerWidget {
     return postBySearchTerm.when(
       data: (posts) {
         if (posts.isEmpty) {
-          return const DataNotFoundAnimationView();
+          return const SliverToBoxAdapter(
+            child: DataNotFoundAnimationView(),
+          );
         } else {
-          return PostsGridView(
+          return PostsSliverGridView(
             posts: posts,
           );
         }
       },
-      error: (error, stackTrace) => const ErrorAnimationView(),
-      loading: () => const LoadingAnimationView(),
+      error: (error, stackTrace) => const SliverToBoxAdapter(
+        child: ErrorAnimationView(),
+      ),
+      loading: () => const SliverToBoxAdapter(
+        child: LoadingAnimationView(),
+      ),
     );
   }
 }
