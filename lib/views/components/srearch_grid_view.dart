@@ -4,7 +4,6 @@ import 'package:global_gallery/views/components/animations/data_not_found_animat
 import 'package:global_gallery/views/components/animations/empty_contents_with_text_animation_view.dart';
 import 'package:global_gallery/views/components/animations/error_animation_view.dart';
 import 'package:global_gallery/views/components/animations/loading_animation_view.dart';
-import 'package:global_gallery/views/components/post/posts_grid_view.dart';
 import 'package:global_gallery/views/components/post/posts_sliver_grid_view.dart';
 import 'package:global_gallery/views/constants/strings.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

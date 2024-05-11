@@ -8,6 +8,7 @@ import 'package:global_gallery/views/components/dialogs/alert_dialog_model.dart'
 import 'package:global_gallery/views/components/dialogs/logout_dialog.dart';
 import 'package:global_gallery/views/constants/strings.dart';
 import 'package:global_gallery/views/create_new_posts/create_new_post_view.dart';
+import 'package:global_gallery/views/tabs/home/home_view.dart';
 import 'package:global_gallery/views/tabs/search/search_view.dart';
 import 'package:global_gallery/views/tabs/user_posts/user_posts_view.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -111,7 +112,7 @@ class _MainVIewState extends ConsumerState<MainView> {
           children: [
             UserPostsView(),
             SearchView(),
-            UserPostsView(),
+            HomeView(),
           ],
         ),
       ),
